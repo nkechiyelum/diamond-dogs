@@ -23,6 +23,7 @@ resource "aws_vpc" "diamond_dogs" {
 resource "aws_subnet" "diamond_dogs" {
   vpc_id     = aws_vpc.diamond_dogs.id
   cidr_block = var.subnet_prefix
+  availability_zone = "us-east-1b"
 
   tags = {
     name = "${var.prefix}-subnet-${var.environment}"
