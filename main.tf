@@ -15,7 +15,7 @@ resource "aws_vpc" "diamond_dogs" {
   enable_dns_hostnames = true
 
   tags = {
-    name        = "${var.prefix}-vpc-${var.region}"
+    Name        = "${var.prefix}-vpc-${var.region}-${var.environment}"
     environment = var.environment
   }
 }
@@ -25,12 +25,12 @@ resource "aws_subnet" "diamond_dogs" {
   cidr_block = var.subnet_prefix
 
   tags = {
-    name = "${var.prefix}-subnet"
+    name = "${var.prefix}-subnet-${var.environment}"
   }
 }
 
 resource "aws_security_group" "diamond_dogs" {
-  name = "${var.prefix}-security-group"
+  name = "${var.prefix}-security-group-${var.environment}"
 
   vpc_id = aws_vpc.diamond_dogs.id
 
@@ -56,7 +56,7 @@ resource "aws_security_group" "diamond_dogs" {
   }
 
   tags = {
-    Name = "${var.prefix}-security-group"
+    Name = "${var.prefix}-sg-${var.environment}"
   }
 
   lifecycle {
@@ -68,7 +68,7 @@ resource "aws_internet_gateway" "diamond_dogs" {
   vpc_id = aws_vpc.diamond_dogs.id
 
   tags = {
-    Name = "${var.prefix}-internet-gateway"
+    Name = "${var.prefix}-igw-${var.environment}"
   }
 }
 
@@ -78,6 +78,10 @@ resource "aws_route_table" "diamond_dogs" {
   route {
     cidr_block = "0.0.0.0/0"
     gateway_id = aws_internet_gateway.diamond_dogs.id
+  }
+
+  tags = {
+    Name = "${var.prefix}-rt-${var.environment}"
   }
 }
 
@@ -118,12 +122,17 @@ resource "aws_instance" "diamond_dogs" {
   })
 
   tags = {
-    Name = "${var.prefix}-diamond_dogs-instance"
+    Name = "${var.prefix}-diamonddogs-${var.environment}"
   }
 }
 
 resource "aws_eip" "diamond_dogs" {
   instance = aws_instance.diamond_dogs.id
+
+  tags = {
+     Name = "${var.prefix}-eip-${var.environment}"
+  }
+
 }
 
 resource "aws_eip_association" "diamond_dogs" {
