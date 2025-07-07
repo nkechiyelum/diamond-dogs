@@ -124,6 +124,7 @@ resource "aws_instance" "diamond_dogs" {
 
   tags = {
     Name = "${var.prefix}-diamonddogs-${var.environment}"
+    "Name:eni" = "${var.prefix}-eni-${var.environment}" 
   }
 }
 
@@ -135,7 +136,7 @@ resource "aws_eip_association" "diamond_dogs" {
   instance_id   = aws_instance.diamond_dogs.id
   allocation_id = aws_eip.diamond_dogs.id
 
-  tags = {"${var.prefix}-eip-${var.environment}"
-    Name = 
+  tags = {
+    Name = "${var.prefix}-eip-${var.environment}"
   }
 }
