@@ -141,7 +141,5 @@ resource "aws_eip_association" "diamond_dogs" {
   instance_id   = aws_instance.diamond_dogs.id
   allocation_id = aws_eip.diamond_dogs.id
 
-  tags = {
-    Name = "${var.prefix}-eip-${var.environment}"
-  }
+
 }
