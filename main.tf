@@ -15,7 +15,7 @@ resource "aws_vpc" "diamond_dogs" {
   enable_dns_hostnames = true
 
   tags = {
-    name        = "${var.prefix}-vpc-${var.region}-${var.environment}"
+    Name        = "${var.prefix}-vpc-${var.region}-${var.environment}"
     environment = var.environment
   }
 }
@@ -134,4 +134,8 @@ resource "aws_eip" "diamond_dogs" {
 resource "aws_eip_association" "diamond_dogs" {
   instance_id   = aws_instance.diamond_dogs.id
   allocation_id = aws_eip.diamond_dogs.id
+
+  tags = {"${var.prefix}-eip-${var.environment}"
+    Name = 
+  }
 }
