@@ -5,6 +5,7 @@ provider "aws" {
       Owner       = "Globomantics"
       Project     = var.project
       Environment = var.environment
+      Billing     = "Diamond Dogs web App"
     }
   }
 }
